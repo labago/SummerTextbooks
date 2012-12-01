@@ -1,23 +1,6 @@
 
 <?php 
-
-switch ($theme)
-{
-case 1:
-  include("header.php");   
-  break;
-case 2:
-  include("header2.php"); 
-  break;
-case 3:
-  include("header3.php"); 
-  break;
-case 4:
-  include("header4.php"); 
-  break;    
-default:
-  include("header2.php"); 
-}
+include("header2.php"); 
 
 // make a unique number for the user
 function encrypt_user(){
@@ -316,20 +299,5 @@ echo '<META HTTP-EQUIV="Refresh" Content="0; URL=index.php">';
 }
 }
 
-switch ($theme)
-{
-case 1:
-  include("footer.php");   
-  break;
-case 2:
-  include("footer2.php"); 
-  break;
-case 3:
-  include("footer3.php"); 
-  break;
-case 4:
-  include("footer4.php"); 
-  break;    
-default:
-  include("footer2.php"); 
-}?>
+include("footer2.php"); 
+?>

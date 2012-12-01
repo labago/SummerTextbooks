@@ -28,24 +28,7 @@ function check_password($pass){
 	return true;
 }
 
-
-switch ($theme)
-{
-case 1:
-  include("header.php");   
-  break;
-case 2:
-  include("header2.php"); 
-  break;
-case 3:
-  include("header3.php"); 
-  break;
-case 4:
-  include("header4.php"); 
-  break;    
-default:
-  include("header.php"); 
-}
+include("header2.php"); 
 ?>
 <h1> My Account </h1>
 <br>
@@ -144,20 +127,6 @@ else {
 	}
 }
 
-switch ($theme)
-{
-case 1:
-  include("footer.php");   
-  break;
-case 2:
-  include("footer2.php"); 
-  break;
-case 3:
-  include("footer3.php"); 
-  break;
-case 4:
-  include("footer4.php"); 
-  break;    
-default:
-  include("footer.php"); 
-}?>
+
+include("footer2.php"); 
+?>

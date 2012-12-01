@@ -21,23 +21,7 @@ $row = mysql_fetch_row($result);
 
 $theme = $row[1];
 
-switch ($theme)
-{
-case 1:
-  include("header.php");   
-  break;
-case 2:
-  include("header2.php"); 
-  break;
-case 3:
-  include("header3.php"); 
-  break;
-case 4:
-  include("header4.php"); 
-  break;    
-default:
-  include("header.php"); 
-}
+include("header2.php"); 
 ?>
 <h1> Password Retrieval  </h1>
 
@@ -96,23 +80,7 @@ echo "That email is not in our records, go back and try again";
 }	
 	
 	
-	}
+}
 
-switch ($theme)
-{
-case 1:
-  include("footer.php");   
-  break;
-case 2:
-  include("footer2.php"); 
-  break;
-case 3:
-  include("footer3.php"); 
-  break;
-case 4:
-  include("footer4.php"); 
-  break;    
-default:
-  include("footer.php");
-  }
-  ?> 
+include("footer2.php");
+?> 
