@@ -1,6 +1,4 @@
 <?php 
-session_start();
-
 
 $host = "books.summertextbooks.com"; 
 $user = "jlane09"; 
@@ -23,22 +21,6 @@ $row = mysql_fetch_row($result);
 
 $theme = $row[1];
 
-if($_SESSION['logged_in'] == 1){
-	
-$username = $_SESSION['screen_name'];	
-	
-$query = "SELECT * 
-FROM  `Users` 
-WHERE  `Username` LIKE  '$username'
-LIMIT 0 , 30";
-
-$result = mysql_query($query);
-
-$row = mysql_fetch_row($result);
-
-$pre_fill = $row[2];
-}
-
 switch ($theme)
 {
 case 1:
@@ -56,6 +38,23 @@ case 4:
 default:
   include("header.php"); 
 }
+
+if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1){
+	
+$username = $_SESSION['screen_name'];	
+	
+$query = "SELECT * 
+FROM  `Users` 
+WHERE  `Username` LIKE  '$username'
+LIMIT 0 , 30";
+
+$result = mysql_query($query);
+
+$row = mysql_fetch_row($result);
+
+$pre_fill = $row[2];
+}
+
 ?>
 <h1> Contact Us </h1>
 <p>Questions? Constructive Criticism? Just send a message...</p>
@@ -89,13 +88,12 @@ if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
 </script>
 <br>
 <?php                                             
-session_start();
        
 if (!isset($_POST['sent'])) { ?>
          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="form" onsubmit="return validateForm()"> 
 			Subject: <input type="text" name="subject" size="32" maxlength="80">
 			<br>
-			<?php if($_SESSION['logged_in'] == 1){ ?>
+			<?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1){ ?>
 			Return Email: <input type="text" name="email" style='border: none' readonly size="26" maxlength="80" value="<?php echo $pre_fill; ?>">
 			<?php } else { ?>
 			Return Email: <input type="text" name="email" size="26" maxlength="80" value="">

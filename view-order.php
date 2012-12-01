@@ -1,6 +1,6 @@
 <?php 
 
-session_start();
+include("header2.php"); 
 
 $username = $_SESSION['screen_name'];
 $owner = "labago";
@@ -38,23 +38,6 @@ else {
 $ship_page = false;	
 }
 
-switch ($theme)
-{
-case 1:
-  include("header.php");   
-  break;
-case 2:
-  include("header2.php"); 
-  break;
-case 3:
-  include("header3.php"); 
-  break;
-case 4:
-  include("header4.php"); 
-  break;    
-default:
-  include("header2.php"); 
-}
 ?>
 <h1>Your Order</h1>
 <h2> Order  #<?php echo $order_num; ?> <br> Status: <?php echo $status; ?> <br> Made on <?php echo $date; ?> </h2>
@@ -143,20 +126,5 @@ return false;
  <?php 
  }
  
-switch ($theme)
-{
-case 1:
-  include("footer.php");   
-  break;
-case 2:
-  include("footer2.php"); 
-  break;
-case 3:
-  include("footer3.php"); 
-  break;
-case 4:
-  include("footer4.php"); 
-  break;    
-default:
-  include("footer2.php"); 
-}?>
+include("footer2.php"); 
+?>

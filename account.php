@@ -52,15 +52,15 @@ default:
 
  
  <?php 
- if($_GET['changed'] == 1){
+ if(isset($_GET['changed']) && $_GET['changed'] == 1){
 
 	echo "Your password has succesfully been changed";
 	
 }	
-elseif(!$_SESSION['logged_in'] == 1){
- 	
+else if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1)
+{ 	
  echo "Please <a href='login.php?id=1'><font color='3399FF'>login</font></a> or <a href='sign-up.php'><font color='3399FF'>sign up</font></a> to view this page";
- } 	                                            	
+} 	                                            	
 elseif (!isset($_POST['change'])) {
 ?>
 

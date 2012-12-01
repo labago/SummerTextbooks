@@ -10,7 +10,7 @@
                     <li><a href="contact-us.php">Contact Us</a></li>
                     <li><a href="search.php">Search</a></li>
                     <li><a href="account.php">My Account</a></li>
-                    <?php if($_SESSION['logged_in'] == 1){ ?>
+                    <?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1){ ?>
                     <li><a href="books.php">My Book Queue</a></li>
                     <li><a href="orders.php">My Orders</a></li>
                     <?php } ?>

@@ -41,9 +41,8 @@ default:
 ?>
 
 <?php 
-session_start();
 
-if($_SESSION['logged_in'] != 1){ ?>
+if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] != 1){ ?>
 <h1>Welcome!</h1>
 
 <h2>Got some textbooks you want to get rid of quick? Want some extra cash? You've come to the right place.<br><br>

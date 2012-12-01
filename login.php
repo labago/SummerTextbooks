@@ -1,6 +1,9 @@
 <?php 
 
-$where = $_GET['id'];
+if(isset($_GET['id']))
+  $where = $_GET['id'];
+else
+  $where = "";
 
 $host = "books.summertextbooks.com"; 
 $user = "jlane09"; 

@@ -1,9 +1,5 @@
 <?php 
 
-session_start();
-
-$username = $_SESSION['screen_name'];
-
 $host = "books.summertextbooks.com"; 
 $user = "jlane09"; 
 $pass = "counter"; 
@@ -42,6 +38,8 @@ case 4:
 default:
   include("header.php"); 
 }
+
+$username = $_SESSION['screen_name'];
 ?>
 <h1>Your Books</h1>
 

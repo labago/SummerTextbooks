@@ -43,7 +43,7 @@ A free web template by spyka Webmaster (http://www.spyka.net)
           <li><a href="terms.php">Terms</a></li>
                              <?php 
                     session_start();                            
-                            if($_SESSION['logged_in'] == 1){ ?>
+                            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1){ ?>
                               <li><a href="logout.php">Logout</a></li>
                               <?php } else {  ?><li><a href="login.php">Login</a></li> <?php } ?>
       </ul>

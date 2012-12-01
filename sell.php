@@ -1,44 +1,28 @@
 <?php 
 
-session_start();
-
-
-if(isset($_GET['ship'])){
-if($_GET['ship'] == 'true'){
-$ship_page = true;
+if(isset($_GET['ship']))
+{
+  if($_GET['ship'] == 'true')
+  {
+    $ship_page = true;
+  }
+  else 
+  {
+    $ship_page = false;	
+  }	
 }
-else {
-$ship_page = false;	
-}	
-}
-$username = $_SESSION['screen_name'];
+
 $owner = "labago";
 
-if($_GET['error'] == 'true'){
+if(isset($_GET['error']) && $_GET['error'] == 'true'){
 $error = true;
 }
 else {
 $error = false;	
 }
 
-
-switch ($theme)
-{
-case 1:
-  include("header.php");   
-  break;
-case 2:
-  include("header2.php"); 
-  break;
-case 3:
-  include("header3.php"); 
-  break;
-case 4:
-  include("header4.php"); 
-  break;    
-default:
-  include("header2.php"); 
-}
+include("header2.php"); 
+$username = $_SESSION['screen_name'];
 ?>
 <h1>Confirmation</h1>
 <br>
@@ -99,7 +83,7 @@ $total = 0.0;
     } 
     echo "</table>";
    
-    if($ship_page){
+    if(isset($ship_page) && $ship_page){
     if($total < 50.00){
     $ship_total = 3.99;
     }
@@ -111,13 +95,13 @@ $total = 0.0;
     
 ?>    
 
-<?php if($shipping && !$ship_page){ ?>
+<?php if((isset($shipping) && $shipping) && (isset($ship_page) && !$ship_page)) { ?>
 		<form action="sell.php?ship=true" method="post" name="ship_form">	<br> <br>
 			<b><font size="4">Would you like to ship these to us free of charge?<br> 
 			                  (More info on next page if yes, ignore if no.)</font></b><br>
 <input type="submit" name="ship" value="Yes Please!" />
 </form>
-<?php } if($ship_page){ ?>
+<?php } if(isset($ship_page) && $ship_page){ ?>
 <br>	
 <font size="4"><b>You have chosen to ship these books to us. A total of <font color="green">$<?php echo $ship_total; ?></font> has been added to your
                total to compensate for shipping costs. If instead you would prefer not to ship these books, click cancel below. </font></b>	
@@ -131,7 +115,7 @@ $total = 0.0;
 
 <?php
 
-if($ship_page){
+if(isset($ship_page) && $ship_page){
 $location = "jump.php?ship=true";	
 }
 else {
@@ -163,7 +147,7 @@ thisform.submit(); // this line submits the form
 			<b>Payment Method:</b> <br><br>
 			<?php if($paypal == 'True'){ ?>
 			Paypal<input type="radio" size="5" name="payment" id="r1" value="paypal" /><br>
-			<?php } if($cash == 'True' && !$ship_page){ ?> 
+			<?php } if($cash == 'True' && (isset($ship_page) && !$ship_page)) { ?> 
 			Cash<input type="radio" size="5" name="payment" id="r1" value="cash" /><br>
 			<?php } if($check == 'True'){ ?>
 			Check<input type="radio" size="5" name="payment" id="r1" value="a check" />
@@ -176,7 +160,7 @@ thisform.submit(); // this line submits the form
     echo "<br>";
     ?>
     
-<?php if($ship_page){ ?>
+<?php if(isset($ship_page) && $ship_page){ ?>
 <input type="submit" name="submitit" value="Confirm" />
 <?php } else { ?>    
 <input type="submit" name="submitit" onclick="valbutton(form);return false;" value="Confirm" />
@@ -196,20 +180,5 @@ echo "Please <a href='login.php?id=4'><font color='3399FF'>login</font></a> or <
 	
 }
  
-switch ($theme)
-{
-case 1:
-  include("footer.php");   
-  break;
-case 2:
-  include("footer2.php"); 
-  break;
-case 3:
-  include("footer3.php"); 
-  break;
-case 4:
-  include("footer4.php"); 
-  break;    
-default:
-  include("footer2.php"); 
-}?>
+include("footer2.php"); 
+?>

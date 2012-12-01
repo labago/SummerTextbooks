@@ -1,8 +1,5 @@
 <?php 
 
-session_start();
-
-$username = $_SESSION['screen_name'];
 $owner = "labago";
 
 if(isset($_GET['ship'])){
@@ -14,23 +11,8 @@ $ship_page = false;
 }	
 }
 
-switch ($theme)
-{
-case 1:
-  include("header.php");   
-  break;
-case 2:
-  include("header2.php"); 
-  break;
-case 3:
-  include("header3.php"); 
-  break;
-case 4:
-  include("header4.php"); 
-  break;    
-default:
-  include("header2.php"); 
-}
+include("header2.php"); 
+$username = $_SESSION['screen_name'];
 ?>
 <h1>Thank You!</h1>
 <br>
@@ -96,7 +78,7 @@ $message = $message.$title." - $".$price."<br>";
         }
     }
     
-    if($ship_page){
+    if(isset($ship_page) && $ship_page){
     if($total < 50.00){
     $ship_total = 3.99;
     }
@@ -106,7 +88,7 @@ $message = $message.$title." - $".$price."<br>";
     $total += $ship_total;
     }
     else {
-    $ship_total += '0.00';	
+    $ship_total = '0.00';	
     }    
     
 
@@ -157,7 +139,7 @@ $address = $row[9];
 $zip = $row[10];
 
 
-if($ship_page){
+if(isset($ship_page) && $ship_page){
 $shipping_choice = "You have been given $".$ship_total." for shipping, please ship to the address below: <br> <br>".
                     $fname." ".$lname."<br>".
                     $address."<br>".
@@ -197,20 +179,6 @@ else {
 echo "Please <a href='login.php'><font color='3399FF'>login</font></a> or <a href='sign-up.php'><font color='3399FF'>sign up</font></a> to view this page";	
 	
 }  
-switch ($theme)
-{
-case 1:
-  include("footer.php");   
-  break;
-case 2:
-  include("footer2.php"); 
-  break;
-case 3:
-  include("footer3.php"); 
-  break;
-case 4:
-  include("footer4.php"); 
-  break;    
-default:
-  include("footer2.php"); 
-}?>
+
+include("footer2.php"); 
+?>

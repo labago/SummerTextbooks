@@ -1,5 +1,4 @@
 <?php 
-session_start();
 
 $host = "books.summertextbooks.com"; 
 $user = "jlane09"; 
@@ -332,9 +331,13 @@ echo "<font size='4'>Added! Go <a href='search.php'><font color='3399FF'>here</f
   
 }
 
-
-$title = str_replace("'", "", $title);
-$title = str_replace('"', "", $title);
+if(isset($title))
+{
+  $title = str_replace("'", "", $title);
+  $title = str_replace('"', "", $title);
+}
+else
+  $title = "";
 
 if(isset($_POST['search'])){
 if($_SESSION['logged_in'] != 1){
