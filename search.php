@@ -31,6 +31,21 @@ function search(isbn)
             }
     });
 }
+function add(isbn, price, title) 
+{
+     $('.results').html('<center><img src="images/loading17.gif" width="100"></center>');
+     $.ajax({
+            type: "GET",
+            url: "add-remove.php",
+            data: "isbn="+isbn+"&title="+title+"&price="+price+"&add=2",
+            success: function(data){
+                if(data == 'Success')
+                  $('.results').html('Added!');
+                else
+                  $('.results').html('Something Went Wrong');
+            }
+    });
+}
 $(document).ready(function () {
   $('#search_button').click(function(){
     search(document.search_form.isbn.value); return false;
@@ -161,16 +176,9 @@ try
 
     if($_SESSION['logged_in'] == 1)
     {
-      
-    $_SESSION['title'] = substr($title, 0, 50);
-    $_SESSION['isbn'] = $isbn;
-    $_SESSION['price'] = $low_price;
-    ?>
 
-    <a href="add-remove.php?add=1" ><button name="add">Add to My Books</button></a>
-    <a href="add-remove.php?add=0" ><button name="reject">Reject</button></a>
-
-    <?php
+    echo '<a href="add-remove.php?add=1&title='.htmlentities(substr($title, 0, 50)).'&isbn='.$isbn.'&price='.$low_price.'" ><button name="add">Add to My Books</button></a>';
+    echo '<a href="add-remove.php?add=0" ><button name="reject">Reject</button></a>';
     }
     else {
 

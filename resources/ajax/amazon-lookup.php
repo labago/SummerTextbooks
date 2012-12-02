@@ -116,16 +116,10 @@ try
 
     if($_SESSION['logged_in'] == 1)
     {
-      
-    $_SESSION['title'] = substr($title, 0, 50);
-    $_SESSION['isbn'] = $isbn;
-    $_SESSION['price'] = $low_price;
-    ?>
-
-    <a href="add-remove.php?add=1" ><button name="add">Add to My Books</button></a>
-    <a href="add-remove.php?add=0" ><button name="reject">Reject</button></a>
-
+        ?>
+    <a href="#" onclick="add('<?php echo $isbn; ?>', '<?php echo $low_price; ?>', '<?php echo htmlentities(substr($title, 0, 50)); ?>'); return false;"><button name="add">Add to My Books</button></a>
     <?php
+    echo '<a href="add-remove.php?add=0" ><button name="reject">Reject</button></a>';
     }
     else {
 
