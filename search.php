@@ -10,6 +10,17 @@ $connection = mysql_connect($host, $user, $pass) or die ("Unable to connect!");
 		
 mysql_select_db($db) or die ("Unable to select database!");
 
+$query = "SELECT * 
+FROM  `Settings` 
+WHERE  `Owner` LIKE  'jlane09'
+LIMIT 0 , 30";
+
+$result = mysql_query($query) or die ("Error in query: $query. ".mysql_error());	
+
+$row = mysql_fetch_row($result);
+
+$theme = $row[1];
+
 include("header2.php"); 
 ?>
 <h1>See what we can give you</h1>
@@ -18,7 +29,6 @@ include("header2.php");
 <b><font size="3">(Do not include dashes, search may take up to 5 seconds)</font></b></p>
 <br>
 <br>
-
 
 <?php 
 
@@ -60,249 +70,82 @@ if(!isset($_POST['search'])){ ?>
 
 <?php } else {
 	
-function find_title($string){
-
-$needle = "<title>"; 
-	
-$start = strpos($string, $needle);
-
-$new_string = substr($string, ($start + 7) , 1000);
-
-$end_of_title = strpos($new_string, ',');
-
-$title = substr($new_string, 0, $end_of_title);	
-	
-return $title;
-}	
-	
-	
-	
-	
-	
 $isbn = trim($_POST['isbn']);	
-	
-if(strlen($isbn) > 10){
-
-$isbn = substr($isbn, 3);	
-		
-$url = 'http://www.cheapesttextbooks.com/Computers-Internet-Textbooks/Networking-Textbooks/Introducing-the-Theory-of-Computation-Wayne-Goddard-'.$isbn.'-978'.$isbn.'.html';
-}
-else {
-$url = 'http://www.cheapesttextbooks.com/Computers-Internet-Textbooks/Networking-Textbooks/Introducing-the-Theory-of-Computation-Wayne-Goddard-'.$isbn.'-978'.$isbn.'.html';
-}	
-
-$needle = 'Amazon<br />(Marketplace)</a>'; 
-$contents = file_get_contents($url); 
-if(strpos($contents, $needle)!== false && (strlen($isbn) >= 10)) { 
-
-$start = strpos($contents, $needle);
-
-$new_string = substr($contents, $start, 1000);
-
-$price_start = strpos($new_string, '<span class="price">');
-
-$new_string2 = substr($new_string, ($price_start + 21), 10);
-
-$end_of_price = strpos($new_string2, '</');
-
-$original_price = substr($new_string2, 0, $end_of_price);
-
-// use the rate specified by the owner
-$price = round(($original_price * $owner_rate), 2);
-$title = find_title($contents);
-
-$needle = "<!-- begin product_card_large -->"; 
-$contents = file_get_contents($url); 
-$start = strpos($contents, $needle);
-
-$new_string = substr($contents, $start, 2000);
-
-$img_start = strpos($new_string, '<img src="');
-
-$new_string2 = substr($new_string, ($img_start + 10), 1000);
-
-$end_of_img = strpos($new_string2, '" alt');
-
-$img = substr($new_string2, 0, $end_of_img);
-
-$test = explode('.', $price);
-$length = strlen($test[1]);
-
-if($owner_rank_min != 1000000){
-//start rank search
-$url = "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=".$isbn."&x=0&y=0";
-
-$needle = '<td align="center" width="115">';
-$contents = file_get_contents($url);  
-if(strpos($contents, $needle)!== false){
   
-$start = strpos($contents, $needle);  
-
-$new_string = substr($contents, $start, 1000);
-
-$url_start = strpos($new_string, '<a href="');
-
-$new_string2 = substr($new_string, ($url_start + 9), 300);
-
-$end_of_url = strpos($new_string2, '">');  
-
-$original_url = substr($new_string2, 0, $end_of_url);
-
-// book url found, search for rank  
-$url = $original_url;
-
-$needle = 'Amazon Bestsellers Rank:';
-$contents = file_get_contents($url);  
-if(strpos($contents, $needle)!== false){
-
-$start = strpos($contents, $needle);  
-
-$new_string = substr($contents, $start, 1000);
-
-$url_start = strpos($new_string, '#');
-
-$new_string2 = substr($new_string, ($url_start + 1), 2000);
-
-$end_of_url = strpos($new_string2, 'in Books');  
-
-$original_url = substr($new_string2, 0, $end_of_url);
-
-$rank = str_replace(",", "", trim($original_url));
-$rank = $rank + 0;
-}
-else {
-$rank = "Not Found";  
-}
-}
-else {
-$rank = "Not Found";  
+if (is_file('resources/api/amazon/sampleSettings.php'))
+{
+  include 'resources/api/amazon/sampleSettings.php';
 }
 
-if($rank == "Not Found"){
-$url = "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=978".$isbn."&x=0&y=0";
+defined('AWS_ASSOCIATE_TAG') or define('AWS_ASSOCIATE_TAG', 'ASSOCIATE TAG');
 
-$needle = '<td align="center" width="115">';
-$contents = file_get_contents($url);  
-if(strpos($contents, $needle)!== false){
-  
-$start = strpos($contents, $needle);  
+require 'resources/api/amazon/AmazonECS.class.php';
 
-$new_string = substr($contents, $start, 1000);
+try
+{
+    $amazonEcs = new AmazonECS('AKIAI4Z5QGF45FO6A2NA', 'GFOKAPtm+Xe5REKUmpDk/T0Nisbw3KG1QdXnQqlt', 'com', AWS_ASSOCIATE_TAG);
 
-$url_start = strpos($new_string, '<a href="');
+    $amazonEcs->associateTag(AWS_ASSOCIATE_TAG);
 
-$new_string2 = substr($new_string, ($url_start + 9), 300);
+    // Looking up multiple items
+    $response = $amazonEcs->responseGroup('Large')->optionalParameters(array('Condition' => 'Used'))->lookup($isbn);
+    //var_dump($response->Items);
 
-$end_of_url = strpos($new_string2, '">');  
+    $title = $response->Items->Item->ItemAttributes->Title;
+    $img = $response->Items->Item->MediumImage->URL;
+    $price = $response->Items->Item->OfferSummary->LowestUsedPrice->FormattedPrice;
+    $price_int = intval(substr($price, 1));
+    $low_price = $price_int * $owner_rate;
+    $rank = $response->Items->Item->SalesRank;
 
-$original_url = substr($new_string2, 0, $end_of_url);
-
-// book url found, search for rank  
-$url = $original_url;
-
-$needle = 'Amazon Bestsellers Rank:';
-$contents = file_get_contents($url);  
-if(strpos($contents, $needle)!== false){
-
-$start = strpos($contents, $needle);  
-
-$new_string = substr($contents, $start, 1000);
-
-$url_start = strpos($new_string, '#');
-
-$new_string2 = substr($new_string, ($url_start + 1), 2000);
-
-$end_of_url = strpos($new_string2, 'in Books');  
-
-$original_url = substr($new_string2, 0, $end_of_url);
-
-$rank = str_replace(",", "", trim($original_url));
-$rank = $rank + 0;
-
+if($owner_rank_min == 1000000)
+{
+  $ranking = true;
 }
-else {
-$rank = "Not Found";  
-}
-}
-else {
-$rank = "Not Found";  
-}
-  
-}
-} //end rank search
-else {
-$rank = "Not Found";
+else
+{
+  if($rank < $owner_rank_min)
+    $ranking = true;
+  else
+    $ranking = false;
 }
 
-$ranking = false;
-if($rank < $owner_rank_min || $rank == 'Not Found')
-$ranking = true;
+if(($owner_min < $low_price) && $ranking)
+{
+  echo "<center>";  
+  echo "<font size='5'><b>".$title."</b></font>";
+  echo "<br>";
+  echo '<img src="'.$img.'">';
+  echo "<br>";
+  echo "We can give you <font size='3' color='green'>$".$low_price."</font> for this book.";
+  echo "</center>";
 
-if(($length > 1) || ($length == 0)){
-$digits = true;  
-}
-else {
-$digits = false;  
-}
-// book has to be above users minimum price and ranking
-if((!($original_price < $owner_min)) && $ranking){  
-if($digits){
-echo "<center>";  
-echo "<font size='5'><b>".$title."</b></font>";
-echo "<br>";
-echo '<img src="'.$img.'">';
-echo "<br>";
-echo "We can give you <font size='3' color='green'>$".$price."</font> for this book.";
-echo "</center>";
-}
-else {
-echo "<center>";  
-echo "<font size='5'><b>".$title."</b></font>";
-echo "<br>";
-echo "We can give you <font size='3' color='green'>$".$price."0</font> for this book.";  
-echo "</center>";  
-}
+  if($_SESSION['logged_in'] == 1)
+  {
+    
+  $_SESSION['title'] = substr($title, 0, 50);
+  $_SESSION['isbn'] = $isbn;
+  $_SESSION['price'] = $low_price;
+  ?>
 
+  <a href="add-remove.php?add=1" ><button name="add">Add to My Books</button></a>
+  <a href="add-remove.php?add=0" ><button name="reject">Reject</button></a>
 
-if($_SESSION['logged_in'] == 1){
-  
-$_SESSION['title'] = substr($title, 0, 50);
-$_SESSION['isbn'] = $isbn;
-$_SESSION['price'] = $price;
-?>
+  <?php
+  }
+  else {
 
-<a href="add-remove.php?add=1" ><button name="add">Add to My Books</button></a>
-<a href="add-remove.php?add=0" ><button name="reject">Reject</button></a>
-
-<?php
-}
-else {
-
-echo "To add to your book queue, please <a href='login.php?id=2'><font color='3399FF'>login</font></a> or <a href='sign-up.php'><font color='3399FF'>sign up</font></a>";
-}
-
+  echo "To add to your book queue, please <a href='login.php?id=2'><font color='3399FF'>login</font></a> or <a href='sign-up.php'><font color='3399FF'>sign up</font></a>";
+  }
 }
 else {
 
 echo 'Sorry, either that book is too little in value for us to take, or it too low of a book ranking. <a href="search.php" ><font color="3399FF">Try Another</font></a>';
 
 }
-
-
-} else { 
-echo 'Sorry, we could not find the textbook you are looking for. Check to see if you entered the ISBN correctly or <a href="search.php" ><font color="3399FF">Try Another</font></a>. Remember, it is a 10 or 13 digit number and <b>do not include dashes</b>';
  
 $title = "Not Found";
 $price = 'N/A'; 
- 
-}     
-}
-}
-else {
-
-echo "<font size='4'>Added! Go <a href='search.php'><font color='3399FF'>here</font></a> to add another or view your <a href='books.php'><font color='3399FF'>books</font></a></font>";
-  
-}
 
 if(isset($title))
 {
@@ -350,5 +193,17 @@ CURRENT_TIMESTAMP ,  '$owner',  '$title',  '$price'
 mysql_query($query) or die ("Error in query: $query. ".mysql_error());
 }
 
+}
+catch(Exception $e)
+{
+  echo 'Sorry, we could not find the textbook you are looking for. Check to see if you entered the ISBN correctly or <a href="search.php" ><font color="3399FF">Try Another</font></a>. Remember, it is a 10 or 13 digit number and <b>do not include dashes</b>';
+}
+}
+}
+else {
+
+echo "<font size='4'>Added! Go <a href='search.php'><font color='3399FF'>here</font></a> to add another or view your <a href='books.php'><font color='3399FF'>books</font></a></font>";
+  
+}
 include("footer2.php"); 
 ?>
