@@ -11,6 +11,7 @@ A free web template by spyka Webmaster (http://www.spyka.net)
 //-->
 
 <link rel="stylesheet" href="css/core.css" type="text/css" />
+<script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
