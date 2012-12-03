@@ -13,34 +13,45 @@ mysql_select_db($db) or die ("Unable to select database!");
 include("header2.php"); 
 ?>
 <h1>See what we can give you</h1>
-<p>Just enter the 10 or 13 digit ISBN number of the book you are curious about, and we will tell you what we can give you for it.<br>
+<p>Just enter the 10 or 13 digit ISBN number of the books you are curious about. You can enter one at a time and they will be added to the table below, then
+  use the buttons to decide what you want to do with them<br>
 <br>
-<b><font size="3">(Do not include dashes, search may take up to 5 seconds)</font></b></p>
+<b><font size="3">(Do not include dashes)</font></b></p>
 <br>
 <br>
 <script>
+function removeElement(node) {
+    node.parentNode.removeChild(node);
+}
 function search(isbn) 
 {
-     $('.results').html('<center><img src="images/loading17.gif" width="100"></center>');
-     $.ajax({
-            type: "GET",
-            url: "resources/ajax/amazon-lookup.php",
-            data: "isbn="+isbn,
-            success: function(data){
-                $('.results').html(data);
-            }
-    });
+     if(isbn.length > 9)
+     {
+       var old = $('#result_table').html();
+       document.search_form.isbn.value = '';
+       $('#result_table').html(old+'<tr><center><td><img src="images/loading17.gif" width="100"></td></center></tr>');
+       $.ajax({
+              type: "GET",
+              url: "resources/ajax/amazon-lookup.php",
+              data: "isbn="+isbn,
+              success: function(data){
+                  $('#result_table').html(old+data);
+              }
+        });
+     }
+     else
+      alert('Please enter a valid ISBN number.');
 }
-function add(isbn, price, title) 
+function add(isbn, price, title, el) 
 {
-     $('.results').html('<center><img src="images/loading17.gif" width="100"></center>');
+     $(el).html('<img src="images/loading17.gif" width="50">');
      $.ajax({
             type: "GET",
             url: "add-remove.php",
             data: "isbn="+isbn+"&title="+title+"&price="+price+"&add=2",
             success: function(data){
                 if(data == 'Success')
-                  $('.results').html('Added!');
+                  $(el.parentNode).html('<font size="2"><b>Added!</b></font>');
                 else
                   $('.results').html('Something Went Wrong');
             }
@@ -88,6 +99,17 @@ if(!isset($_POST['search'])){ ?>
 </form>
 <br>
 <div class="results">
+  <center>
+    <table border="1" bordercolor="black" style="background-color:white" width="100%" cellpadding="3" cellspacing="3" id="result_table">
+      <tr>
+          <td>ISBN #</td>
+          <td>Title</td>
+          <td>Cover Image</td>
+          <td>Our Offer</td>
+          <td>Decision</td>
+      </tr>
+    </table>
+  </center>
 </div>
 
 <br>
