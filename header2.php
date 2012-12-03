@@ -1,3 +1,4 @@
+<?php @session_start(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -42,8 +43,7 @@ A free web template by spyka Webmaster (http://www.spyka.net)
           <li><a href="search.php">Search</a></li>
           <li><a href="account.php">My Account</a></li>
           <li><a href="terms.php">Terms</a></li>
-          <?php 
-            session_start();                            
+          <?php                            
             if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1){ ?>
           <li><a href="logout.php">Logout</a></li>
           <?php } else {  ?><li><a href="login.php">Login</a></li> <?php }

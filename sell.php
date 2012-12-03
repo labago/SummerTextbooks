@@ -147,7 +147,7 @@ thisform.submit(); // this line submits the form
 			<b>Payment Method:</b> <br><br>
 			<?php if($paypal == 'True'){ ?>
 			Paypal<input type="radio" size="5" name="payment" id="r1" value="paypal" /><br>
-			<?php } if($cash == 'True' && (isset($ship_page) && !$ship_page)) { ?> 
+			<?php } if($cash == 'True' && (!isset($ship_page) || !$ship_page)) { ?> 
 			Cash<input type="radio" size="5" name="payment" id="r1" value="cash" /><br>
 			<?php } if($check == 'True'){ ?>
 			Check<input type="radio" size="5" name="payment" id="r1" value="a check" />

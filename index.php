@@ -41,27 +41,9 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] != 1){ ?>
 </form>
 </center> 
 <?php }
-else { ?>
-
-<h1>See what we can give you</h1>
-<p>Just enter the 10 or 13 digit ISBN number of the book you are curious about, and we will tell you what we can give you for it.<br>
-<b>(Do not include dashes, search may take up to 5 seconds)</b></p>
-<br>
-<br>
-
-<center>
-<form action="search.php" method="post"> 
-      ISBN #: <input type="text" name="isbn" size="36" maxlength="13">
-    <input type="submit" value="Search" name="search"> 
-</form>
-</center>
-       
- 
- <br>
- <br>
- 
-<font size="3">To view your book queue and orders go to your <a href="account.php" ><font color="3399FF">My Account</font></a> page</font>
-<?php 
+else
+{ 
+	echo '<META HTTP-EQUIV="Refresh" Content="0; URL=search.php">'; 
 }
 
 include("footer2.php"); 

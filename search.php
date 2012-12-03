@@ -17,8 +17,6 @@ include("header2.php");
   use the buttons to decide what you want to do with them<br>
 <br>
 <b><font size="3">(Do not include dashes)</font></b></p>
-<br>
-<br>
 <script>
 function removeElement(node) {
     node.parentNode.removeChild(node);
