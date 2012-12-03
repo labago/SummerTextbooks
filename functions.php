@@ -122,7 +122,7 @@ function search_isbn($isbn)
         }
         else 
         {
-          echo "<td>To add to your book queue, please <a href='login.php?id=2'><font color='3399FF'>login</font></a> or <a href='sign-up.php'><font color='3399FF'>sign up</font></a></td>";
+          echo "<td>To add to your book queue, please <a href='login.php?id=2'><font color='3399FF'>login</font></a> or <a href='sign-up.php'><font color='3399FF'>register</font></a></td>";
         }
       echo '</tr>';
     }
@@ -130,19 +130,19 @@ function search_isbn($isbn)
     {
       $title = "Not Found";
       $price = "N/A";
-      echo '<tr><td>'.$isbn.'</td><td colspan="4">Sorry, that book is too little in value for us to take.</td></tr>';
+      echo '<tr><td><b>'.$isbn.'</b></td><td colspan="4">Sorry, that book is too little in value for us to take.</td></tr>';
     }
   }
   catch(Exception $e)
   {
     $title = "Not Found";
     $price = "N/A";
-    echo '<tr><td>'.$isbn.'</td><td colspan="4">Sorry, we could not find the textbook you are looking for. Check to see if you entered the ISBN correctly. Remember, it is a 10 or 13 digit number and <b>do not include dashes</b></td></tr>';
+    echo '<tr><td><b>'.$isbn.'</b></td><td colspan="4">Sorry, we could not find the textbook you are looking for. Check to see if you entered the ISBN correctly. Remember, it is a 10 or 13 digit number and <b>do not include dashes</b></td></tr>';
   }
 
   if($_SESSION['logged_in'] != 1)
   {
-    log_search($isbn, $searcher, $owner, $title, $price);
+    log_search($isbn, 'Guest', $owner, $title, $price);
   }
   else 
   {

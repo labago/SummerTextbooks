@@ -42,11 +42,14 @@ A free web template by spyka Webmaster (http://www.spyka.net)
           <li><a href="search.php">Search</a></li>
           <li><a href="account.php">My Account</a></li>
           <li><a href="terms.php">Terms</a></li>
-                             <?php 
-                    session_start();                            
-                            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1){ ?>
-                              <li><a href="logout.php">Logout</a></li>
-                              <?php } else {  ?><li><a href="login.php">Login</a></li> <?php } ?>
+          <?php 
+            session_start();                            
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1){ ?>
+          <li><a href="logout.php">Logout</a></li>
+          <?php } else {  ?><li><a href="login.php">Login</a></li> <?php }
+          if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){ ?>
+          <li><a href="sign-up.php">Sign Up</a></li>
+          <?php } ?>
       </ul>
     </div>
   </div>
