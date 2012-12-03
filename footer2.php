@@ -16,6 +16,17 @@
                     <?php } ?>
                     <li><a href="terms.php">Terms and Conditions</a></li>
                     </ul> 
+                    <script type="text/javascript"><!--
+					google_ad_client = "ca-pub-4650144714910120";
+					/* Summer Textbooks */
+					google_ad_slot = "3313755342";
+					google_ad_width = 234;
+					google_ad_height = 60;
+					//-->
+					</script>
+					<script type="text/javascript"
+					src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+					</script>
 				</div>
 			</div>
 			<!-- end three column -->

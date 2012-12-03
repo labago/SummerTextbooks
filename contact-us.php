@@ -90,7 +90,7 @@ else {
 $sender = $_POST['email'];	
 $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 // Additional headers
-$headers .= 'From: Contact US <'.$sender.'>' . "\r\n";
+$headers .= 'From: Contact Us <'.$sender.'>' . "\r\n";
 $subject = $_POST['subject'];
 $message = $_POST['message'];
 

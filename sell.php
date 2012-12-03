@@ -11,6 +11,10 @@ if(isset($_GET['ship']))
     $ship_page = false;	
   }	
 }
+else
+{
+    $ship_page = false;
+}
 
 $owner = "labago";
 
@@ -51,6 +55,8 @@ $paypal = $row[6];
 $cash = $row[7];
 $check = $row[8];
 $shipping = $row[9];
+if($shipping == 'true')
+    $shipping = true;
 
 $query = "SELECT * 
 FROM  `User Books` 

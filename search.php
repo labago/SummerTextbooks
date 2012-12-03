@@ -109,6 +109,8 @@ if(!isset($_POST['search'])){ ?>
     </table>
   </center>
 </div>
+<br>
+<a href="sell.php" ><input type="submit" value="Sell Added Books!" name="agree"></a>
 
 <br>
 <br>
