@@ -23,23 +23,12 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] != 1){ ?>
 </h2>
 <br>
 <p><font size='4' color='red'>All it takes is 3 easy steps!</font></p>
-1. Make an account here for FREE! <a href="sign-up.php" ><font color='3399FF'>(Make account here)</font></a>
-<br>
-<br>
-2. Search for your books using their ISBN #'s, then add them to your <i>queue</i> if you agree with the price shown.<br>
-<b>Click </b><a href="search.php" ><font color="3399FF">here</font></a><b> to see what you would get for your book!</b> 
-<br>
-<br>
-3. Go to your account menu to see your book queue and finish your order, we will then contact you for meeting arrangements so you can get your money <b>a.s.a.p</b>
-<br>
-<br>
-<br>
-<center>
-<form action="search.php" method="post"> 
-      ISBN #: <input type="text" name="isbn" size="36" maxlength="13">
-    <input type="submit" value="Try It!" name="search"> 
-</form>
-</center> 
+<ol>
+<li>Make an account here for FREE! <a href="sign-up.php" ><font color='3399FF'>(Make account here)</font></a></li>
+<li>Search for your books using their ISBN #'s, then add them to your <i>queue</i> if you agree with the price shown.<br>
+<b>Click </b><a href="search.php" ><font color="3399FF">here</font></a><b> to see what you would get for your book!</b></li> 
+<li>Go to your account menu to see your book queue and finish your order, we will then contact you for meeting arrangements so you can get your money <b>a.s.a.p</b></li>
+</ol>
 <?php }
 else
 { 

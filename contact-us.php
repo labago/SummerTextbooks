@@ -88,7 +88,9 @@ else {
 	echo "Message Sent! We will get back to you within 24 hours";
 	
 $sender = $_POST['email'];	
-$header = 'From: '.$sender."\r\n"; 
+$headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+// Additional headers
+$headers .= 'From: Contact US <'.$sender.'>' . "\r\n";
 $subject = $_POST['subject'];
 $message = $_POST['message'];
 
