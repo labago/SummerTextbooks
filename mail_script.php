@@ -19,24 +19,29 @@ $result = mysql_query($query);
 
 while($row = mysql_fetch_row($result))
 {
-	echo $row[0]." ".$row[1]." - ".$row[2]."<br>";
+	if($row[11] != "true")
+		echo $row[0]." ".$row[1]." - ".$row[2]."<br>";
 }
 
-$headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-// Additional headers
-$headers .= 'From: Summer Textbooks <do-not-reply@summertextbooks.com>' . "\r\n";
+if(true)
+{
+	$headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+	// Additional headers
+	$headers .= 'From: Summer Textbooks <do-not-reply@summertextbooks.com>' . "\r\n";
 
-$subject = "Announcement";
-$message = "<h2>Summer Textbooks</h2><br>";
-$message .= "Dear Jon, <br>";
-$message .= "<p>This is just a friendly reminder that even though the site name implies that we are only open
-				for business in the summer, we are in fact open for the end of the Fall Semester as well. 
-				We are still here to offer you better prices than the book store can, and with some new
-				site improvements, its easier than ever to get cash for your books fast. Visit www.summertextbooks.com 
-				today. </p>";
-$message .= "<p>In case you have forgotten, your password to login with is below:<br>";
-$message .= '<b>"counter"</b></p><br>';
-$message .= "Sincerely, <br> <br> <b>The Summer Textbook Team</b>";               
+	$subject = "Announcement";
+	$message = "<h2>Summer Textbooks</h2><br>";
+	$message .= "Dear Jon, <br>";
+	$message .= "<p>This is just a friendly reminder that even though the site name implies that we are only open
+					for business in the summer, we are in fact open for the end of the Fall Semester as well. 
+					We are still here to offer you better prices than the book store can, and with some new
+					site improvements, its easier than ever to get cash for your books fast. Visit www.summertextbooks.com 
+					today. </p>";
+	$message .= "<p>In case you have forgotten, your password to login with is below:<br>";
+	$message .= '<b>"counter"</b></p><br>';
+	$message .= "Sincerely, <br> <br> <b>The Summer Textbook Team</b>";
+	$message .= "<br><br><br><font size='1'>Unsubscribe from future emails <a href='http://www.summertextbooks.com/opt-out.php?id="."jlane09sjp@gmail.com"."'>here</a>";               
 
-// sent a notification to new user
-mail('jlane09sjp@gmail.com', $subject, $message, $headers);
+	// sent a notification to new user
+	mail('jlane09sjp@gmail.com', $subject, $message, $headers);
+}
