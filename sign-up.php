@@ -121,7 +121,6 @@ return false;
 
 
 </script>
-<center>
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" onsubmit="return check_form(this)">
 			*First Name: <br><input type="text" name="fname" size="26" maxlength="80">
 			<br>
@@ -162,7 +161,6 @@ return false;
 			<font size="1">Items with an * before them are required</font> <br><br>
 		<input type="submit" value="Sign Up" name="signup"> 
 </form>
-</center>
 <?php
 }
 else { 
