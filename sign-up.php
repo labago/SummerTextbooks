@@ -121,39 +121,39 @@ return false;
 
 
 </script>
-
+<center>
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" onsubmit="return check_form(this)">
-			*First Name: <input type="text" name="fname" size="26" maxlength="80">
+			*First Name: <br><input type="text" name="fname" size="26" maxlength="80">
 			<br>
 			<br>
-			*Last Name: <input type="text" name="lname" size="26" maxlength="80">
+			*Last Name: <br><input type="text" name="lname" size="26" maxlength="80">
 			<br>
 			<br>
-			*Email: <input type="text" name="email" size="30" maxlength="90">
+			*Email: <br><input type="text" name="email" size="30" maxlength="90">
 			<br>
 			<br>
-			*Re-enter Email: <input type="text" name="email_check" size="23" maxlength="90">
+			*Re-enter Email: <br><input type="text" name="email_check" size="23" maxlength="90">
 			<br>
 			<br>
-			*Username: <input type="text" name="screen_name" size="26" maxlength="80">
+			*Username: <br><input type="text" name="screen_name" size="26" maxlength="80">
 			<br>
 			<br>
-		   *Password: <input type="password" name="pwd1" size="27" maxlength="20">
+		   *Password: <br><input type="password" name="pwd1" size="27" maxlength="20">
 			<br>
 			<br>
-			*Re-enter Password: <input type="password" name="pwd2" size="21" maxlength="20">
+			*Re-enter Password: <br><input type="password" name="pwd2" size="21" maxlength="20">
 			<br>
 			<br>
-			*Address: <input type="text" name="address" size="21" maxlength="50">
+			*Address: <br><input type="text" name="address" size="21" maxlength="50">
 			<br>
 			<br>
-			*City: <input type="text" name="city" size="21" maxlength="50">
+			*City: <br><input type="text" name="city" size="21" maxlength="50">
 			<br>
 			<br>
-			*Zip Code: <input type="text" name="zip" size="5" maxlength="5">
+			*Zip Code: <br><input type="text" name="zip" size="5" maxlength="5">
 			<br>
 			<br>
-			Phone Number: <input type="text" name="number" size="21" maxlength="25">
+			Phone Number: <br><input type="text" name="number" size="21" maxlength="25">
 			<br>
 			<br>
 			<input type="checkbox" name="terms" /> I have read and understand the <a href="terms.php" >Terms and Conditions</a>
@@ -162,6 +162,7 @@ return false;
 			<font size="1">Items with an * before them are required</font> <br><br>
 		<input type="submit" value="Sign Up" name="signup"> 
 </form>
+</center>
 <?php
 }
 else { 

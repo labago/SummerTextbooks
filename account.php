@@ -119,7 +119,7 @@ $query = "UPDATE  `summer_books`.`Users` SET  `Password` =  '$new' WHERE
 
 mysql_query($query) or die ("Error in query: $query. ".mysql_error());	
 
-header("Location: account.php?changed=1");
+echo '<META HTTP-EQUIV="Refresh" Content="0; URL=account.php?changed=1">'; 
 }
 else {
 	echo "Either your old password did not match the password you entered, or the 

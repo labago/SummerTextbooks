@@ -54,7 +54,7 @@ else
             if($logged_in){ ?>
           <li><a href="logout.php">Logout</a></li>
           <?php } else {  ?><li><a href="login.php">Login</a></li> <?php }
-          if($logged_in){ ?>
+          if(!$logged_in){ ?>
           <li><a href="sign-up.php">Sign Up</a></li>
           <?php } ?>
       </ul>
@@ -65,7 +65,7 @@ else
   
     $array = explode('/', $page);
     
-    $page = $array[2];
+    $page = $array[1];
     
     if(($page == 'index.php' || $page == '') && !$logged_in){
   

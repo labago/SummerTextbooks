@@ -15,7 +15,7 @@ include("header2.php");
 
 <?php 
 
-if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] != 1){ ?>
+if(!$logged_in){ ?>
 <h1>Welcome!</h1>
 
 <h2>Got some textbooks you want to get rid of quick? Want some extra cash? You've come to the right place.<br><br>
