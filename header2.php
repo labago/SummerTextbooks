@@ -28,6 +28,13 @@ A free web template by spyka Webmaster (http://www.spyka.net)
 </script>
 </head>
 <body>
+<?php 
+if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1)
+  $logged_in = true;
+else
+  $logged_in = false;
+?>
+
 <div id="wrapper">
 
   <div id="sitename" class="clear">
@@ -44,10 +51,10 @@ A free web template by spyka Webmaster (http://www.spyka.net)
           <li><a href="account.php">My Account</a></li>
           <li><a href="terms.php">Terms</a></li>
           <?php                            
-            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1){ ?>
+            if($logged_in){ ?>
           <li><a href="logout.php">Logout</a></li>
           <?php } else {  ?><li><a href="login.php">Login</a></li> <?php }
-          if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){ ?>
+          if($logged_in){ ?>
           <li><a href="sign-up.php">Sign Up</a></li>
           <?php } ?>
       </ul>
@@ -58,24 +65,39 @@ A free web template by spyka Webmaster (http://www.spyka.net)
   
     $array = explode('/', $page);
     
-    $page = $array[1];
+    $page = $array[2];
     
-    if(($page == 'index.php' || $page == '') && $_SESSION['logged_in'] !=  1){
+    if(($page == 'index.php' || $page == '') && !$logged_in){
   
    ?>
+   <style>
+   .search_form
+   {
+    padding-top: 10px;
+    padding-right: 200px;
+    font-size: 25px;
+   }
+   </style>
+
   <div id="header" class="clear">
     <div class="header-text">
       <h2><strong>How much is your book worth?</strong></h2><br><br>
       <center>
       <form action="search.php" method="post"> 
-      <font size='4' color='white'>ISBN #: </font> <input type="text" name="isbn" size="36" maxlength="13">
-     <input type="submit" value="Search" name="search">
+      <font size='4' color='white' style="float: left;">ISBN #: </font> <input type="text" name="isbn" size="36" maxlength="13" class="search_form">
+     <input type="hidden" value="Search" name="search">
      </form>
      </center>
-      
     </div>
-    
   </div>
+  <script>
+    $("input").keypress(function(event) {
+    if (event.which == 13) {
+        event.preventDefault();
+        $("form").submit();
+    }
+    });  
+  </script>
   <?php } ?>
   <div class="header-bottom"></div>
   

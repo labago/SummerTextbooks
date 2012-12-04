@@ -152,7 +152,7 @@ $shipping_choice = "You will be contacted soon to set up a meeting arrangement."
 $message = $message."<br> The total comes to $".$total.", and you have selected ".$payment." as your payment method. ".$shipping_choice;
 $message = $message."<br> <br> You can view your order <a href=\"http://www.summertextbooks.com/orders.php\">Here</a>";
 $header = 'Content-type: text/html; charset=iso-8859-1'."\r\n";
-$header .= 'From: confirmation'."\r\n"; 
+$header .= 'From: Confirmation <do-not-reply@summertextbooks.com>'."\r\n"; 
 
 // send a notification to user
 mail($user_email, "Your Order Confirmation", $message, $header);
