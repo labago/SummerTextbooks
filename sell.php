@@ -89,16 +89,23 @@ $total = 0.0;
     } 
     echo "</table>";
    
-    if(isset($ship_page) && $ship_page){
-    if($total < 50.00){
-    $ship_total = 3.99;
-    }
-    else {
-    $ship_total = 7.99;	
-    }
-    $total += $ship_total;
+    if(isset($ship_page) && $ship_page)
+    {
+        if($total < 50.00)
+        {
+            $ship_total = 3.99;
+        }
+        else if($total < 80.00)
+        {
+            $ship_total = 8.50;	
+        }
+        else
+        {
+            $ship_total = 10.99; 
+        }
+
+        $total += $ship_total;
     }    
-    
 ?>    
 
 <?php if((isset($shipping) && $shipping) && (isset($ship_page) && !$ship_page)) { ?>

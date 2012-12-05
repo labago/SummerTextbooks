@@ -136,41 +136,72 @@ try
     $amazonEcs->associateTag(AWS_ASSOCIATE_TAG);
 
     // Looking up multiple items
-    $response = $amazonEcs->responseGroup('Large')->optionalParameters(array('Condition' => 'Used'))->lookup($isbn);
-    //var_dump($response->Items->Item);
+    $response = $amazonEcs->responseGroup('ItemAttributes')->optionalParameters(array('Condition' => 'Used'))->lookup($isbn);
 
-    if(isset($response->Items->Item->ItemAttributes->Title) && isset($response->Items->Item->OfferSummary->LowestUsedPrice->FormattedPrice))
+    if(isset($response->Items->Item->ItemAttributes->Title))
     {
       $title = $response->Items->Item->ItemAttributes->Title;
+      $response = $amazonEcs->responseGroup('Images')->optionalParameters(array('Condition' => 'Used'))->lookup($isbn);
+
       if(isset($response->Items->Item->MediumImage->URL))
         $img = $response->Items->Item->MediumImage->URL;
       else
         $img = '';
+
+      $response = $amazonEcs->responseGroup('OfferSummary')->optionalParameters(array('Condition' => 'Used'))->lookup($isbn);
       $price = $response->Items->Item->OfferSummary->LowestUsedPrice->FormattedPrice;
       $price_int = intval(substr($price, 1));
       $low_price = $price_int * $owner_rate;
-      $rank = $response->Items->Item->SalesRank;
+      $rank = 0;
     }
     else
     {
-      $response = $amazonEcs->responseGroup('Large')->optionalParameters(array('Condition' => 'Used'))->lookup('978'.$isbn);
-      //var_dump($response->Items->Item);
+      $new_isbn = "978".$isbn;
+      $response = $amazonEcs->responseGroup('ItemAttributes')->optionalParameters(array('Condition' => 'Used'))->lookup($new_isbn);
 
-      if(isset($response->Items->Item->ItemAttributes->Title) && isset($response->Items->Item->OfferSummary->LowestUsedPrice->FormattedPrice))
+      if(isset($response->Items->Item->ItemAttributes->Title))
       {
         $title = $response->Items->Item->ItemAttributes->Title;
+        $response = $amazonEcs->responseGroup('Images')->optionalParameters(array('Condition' => 'Used'))->lookup($new_isbn);
+
         if(isset($response->Items->Item->MediumImage->URL))
           $img = $response->Items->Item->MediumImage->URL;
         else
           $img = '';
+
+        $response = $amazonEcs->responseGroup('OfferSummary')->optionalParameters(array('Condition' => 'Used'))->lookup($new_isbn);
         $price = $response->Items->Item->OfferSummary->LowestUsedPrice->FormattedPrice;
         $price_int = intval(substr($price, 1));
         $low_price = $price_int * $owner_rate;
-        $rank = $response->Items->Item->SalesRank;
+        $isbn = $new_isbn;
+        $rank = 0;
       }
       else
       {
-        throw new Exception("Not Found");
+        $new_isbn = substr($isbn, 3);
+        $response = $amazonEcs->responseGroup('ItemAttributes')->optionalParameters(array('Condition' => 'Used'))->lookup($new_isbn);
+
+        if(isset($response->Items->Item->ItemAttributes->Title))
+        {
+          $title = $response->Items->Item->ItemAttributes->Title;
+          $response = $amazonEcs->responseGroup('Images')->optionalParameters(array('Condition' => 'Used'))->lookup($new_isbn);
+
+          if(isset($response->Items->Item->MediumImage->URL))
+            $img = $response->Items->Item->MediumImage->URL;
+          else
+            $img = '';
+
+          $response = $amazonEcs->responseGroup('OfferSummary')->optionalParameters(array('Condition' => 'Used'))->lookup($new_isbn);
+          $price = $response->Items->Item->OfferSummary->LowestUsedPrice->FormattedPrice;
+          $price_int = intval(substr($price, 1));
+          $low_price = $price_int * $owner_rate;
+          $isbn = $new_isbn;
+          $rank = 0;
+        }
+        else
+        {
+          throw new Exception("Not Found");
+        }
       }
     }
 
