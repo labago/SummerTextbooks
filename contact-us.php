@@ -88,13 +88,13 @@ else {
 	echo "Message Sent! We will get back to you within 24 hours";
 	
 $sender = $_POST['email'];	
-$headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+$headers = 'Content-type: text/html; charset=iso-8859-1'."\r\n";
 // Additional headers
-$headers .= 'From: Contact Us <'.$sender.'>' . "\r\n";
+$headers .= 'From: Contact Us <'.$sender.'>'."\r\n";
 $subject = $_POST['subject'];
 $message = $_POST['message'];
 
-mail('jlane09sjp@gmail.com', $subject, $message, $header);
+mail('jlane09sjp@gmail.com', $subject, $message, $headers);
 }
 
 include("footer2.php");
