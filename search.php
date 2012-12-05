@@ -243,9 +243,11 @@ try
   echo 'Sorry, either that book is too little in value for us to take, or it too low of a book ranking. <a href="search.php" ><font color="3399FF">Try Another</font></a>';
 
   }
-   
-  $title = "Not Found";
-  $price = 'N/A'; 
+
+  if(!isset($title))   
+    $title = "Not Found";
+  if(!isset($price))
+    $price = 'N/A';   
 
   if(isset($title))
   {
