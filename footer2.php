@@ -39,7 +39,7 @@
 	</div>
 	
 	<div id="footer">
-		<p>&copy; 2009. Design by <a href="http://www.spyka.net">Free CSS Templates</a> &amp; <a href="http://www.justfreetemplates.com">Free Web Templates</a></p>
+		<p></p>
 	</div>
 </div>
 </body>
