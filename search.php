@@ -227,7 +227,7 @@ try
     echo "We can give you <font size='3' color='green'>$".$low_price."</font> for this book.";
     echo "</center>";
 
-    if($_SESSION['logged_in'] == 1)
+    if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1)
     {
 
     echo '<a href="add-remove.php?add=1&title='.htmlentities(substr($title, 0, 50)).'&isbn='.$isbn.'&price='.$low_price.'" ><button name="add">Add to My Books</button></a>';
@@ -243,59 +243,7 @@ try
   echo 'Sorry, either that book is too little in value for us to take, or it too low of a book ranking. <a href="search.php" ><font color="3399FF">Try Another</font></a>';
 
   }
-
-  if(!isset($title))   
-    $title = "Not Found";
-  if(!isset($price))
-    $price = 'N/A';   
-
-  if(isset($title))
-  {
-    $title = str_replace("'", "", $title);
-    $title = str_replace('"', "", $title);
-  }
-  else
-    $title = "";
-
-  if(isset($_POST['search'])){
-  if($_SESSION['logged_in'] != 1){
-  // store search 
-  $query = "INSERT INTO  `summer_books`.`Searches` (
-  `ISBN` ,
-  `User` ,
-  `Address` ,
-  `Time` ,
-  `Owner` ,
-  `Title` ,
-  `Price`
-  )
-  VALUES (
-  '$isbn',  'Guest',  '$ip', 
-  CURRENT_TIMESTAMP ,  '$owner',  '$title',  '$price'
-  );";
-
-  }
-  else {
-  $searcher = $_SESSION['screen_name'];  
-
-  $query = "INSERT INTO  `summer_books`.`Searches` (
-  `ISBN` ,
-  `User` ,
-  `Address` ,
-  `Time` ,
-  `Owner` ,
-  `Title` ,
-  `Price`
-  )
-  VALUES (
-  '$isbn',  '$searcher',  '$ip', 
-  CURRENT_TIMESTAMP ,  '$owner',  '$title',  '$price'
-  );";  
-  }
-  mysql_query($query) or die ("Error in query: $query. ".mysql_error());
-  }
-
-  }
+}
 catch(Exception $e)
 {
   echo 'Sorry, we could not find the textbook you are looking for. Check to see if you entered the ISBN correctly or <a href="search.php" ><font color="3399FF">Try Another</font></a>. Remember, it is a 10 or 13 digit number and <b>do not include dashes</b>';
@@ -306,6 +254,57 @@ else {
 
 echo "<font size='4'>Added! Go <a href='search.php'><font color='3399FF'>here</font></a> to add another or view your <a href='books.php'><font color='3399FF'>books</font></a></font>";
   
+}
+
+if(!isset($title))   
+  $title = "Not Found";
+if(!isset($price))
+  $price = 'N/A';   
+
+if(isset($title))
+{
+  $title = str_replace("'", "", $title);
+  $title = str_replace('"', "", $title);
+}
+else
+  $title = "";
+
+if(isset($_POST['search'])){
+if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
+// store search 
+$query = "INSERT INTO  `summer_books`.`Searches` (
+`ISBN` ,
+`User` ,
+`Address` ,
+`Time` ,
+`Owner` ,
+`Title` ,
+`Price`
+)
+VALUES (
+'$isbn',  'Guest',  '$ip', 
+CURRENT_TIMESTAMP ,  '$owner',  '$title',  '$price'
+);";
+
+}
+else {
+$searcher = $_SESSION['screen_name'];  
+
+$query = "INSERT INTO  `summer_books`.`Searches` (
+`ISBN` ,
+`User` ,
+`Address` ,
+`Time` ,
+`Owner` ,
+`Title` ,
+`Price`
+)
+VALUES (
+'$isbn',  '$searcher',  '$ip', 
+CURRENT_TIMESTAMP ,  '$owner',  '$title',  '$price'
+);";  
+}
+mysql_query($query) or die ("Error in query: $query. ".mysql_error());
 }
 include("footer2.php"); 
 ?>

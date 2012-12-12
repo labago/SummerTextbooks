@@ -74,8 +74,15 @@ else
    .search_form
    {
     padding-top: 10px;
-    padding-right: 200px;
+    padding-right: 10px;
     font-size: 25px;
+   }
+    #search_submit
+   {
+    float: right;
+    width: 55px;
+    height: 45px;
+    font-size: 15px;
    }
    </style>
 
@@ -85,7 +92,7 @@ else
       <center>
       <form action="search.php" method="post"> 
       <font size='4' color='white' style="float: left;">ISBN #: </font> <input type="text" name="isbn" size="36" maxlength="13" class="search_form">
-     <input type="hidden" value="Search" name="search">
+     <input type="submit" value="Search" name="search" id="search_submit">
      </form>
      </center>
     </div>
